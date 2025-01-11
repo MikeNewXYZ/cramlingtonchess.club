@@ -10,7 +10,13 @@
 		"format": "prettier . --write"
 	},
 	"dependencies": {
+		"@payloadcms/db-sqlite": "^3.16.0",
+		"@payloadcms/email-nodemailer": "^3.16.0",
+		"@payloadcms/next": "^3.16.0",
+		"@payloadcms/richtext-lexical": "^3.16.0",
+		"graphql": "^16.10.0",
 		"next": "15.1.3",
+		"payload": "^3.16.0",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0"
 	},
