@@ -2,12 +2,14 @@
 	"name": "cramlingtonchess.club",
 	"version": "0.1.0",
 	"private": true,
+	"type": "module",
 	"scripts": {
 		"dev": "next dev --turbopack",
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"format": "prettier . --write"
+		"format": "prettier . --write",
+		"payload:types": "npx payload generate:types"
 	},
 	"dependencies": {
 		"@payloadcms/db-sqlite": "^3.16.0",
