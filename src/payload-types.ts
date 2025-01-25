@@ -11,12 +11,12 @@ export interface Config {
     users: UserAuthOperations;
   };
   collections: {
+    players: Player;
+    tournaments: Tournament;
+    matches: Match;
+    scores: Score;
     users: User;
     media: Media;
-    players: Player;
-    matches: Match;
-    tournaments: Tournament;
-    scores: Score;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -31,12 +31,12 @@ export interface Config {
     };
   };
   collectionsSelect: {
+    players: PlayersSelect<false> | PlayersSelect<true>;
+    tournaments: TournamentsSelect<false> | TournamentsSelect<true>;
+    matches: MatchesSelect<false> | MatchesSelect<true>;
+    scores: ScoresSelect<false> | ScoresSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
-    players: PlayersSelect<false> | PlayersSelect<true>;
-    matches: MatchesSelect<false> | MatchesSelect<true>;
-    tournaments: TournamentsSelect<false> | TournamentsSelect<true>;
-    scores: ScoresSelect<false> | ScoresSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -72,42 +72,6 @@ export interface UserAuthOperations {
     email: string;
     password: string;
   };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
- */
-export interface User {
-  id: number;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  password?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: number;
-  alt: string;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -171,11 +135,63 @@ export interface Score {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: number;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  alt: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
   id: number;
   document?:
+    | ({
+        relationTo: 'players';
+        value: number | Player;
+      } | null)
+    | ({
+        relationTo: 'tournaments';
+        value: number | Tournament;
+      } | null)
+    | ({
+        relationTo: 'matches';
+        value: number | Match;
+      } | null)
+    | ({
+        relationTo: 'scores';
+        value: number | Score;
+      } | null)
     | ({
         relationTo: 'users';
         value: number | User;
@@ -183,22 +199,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
-      } | null)
-    | ({
-        relationTo: 'players';
-        value: number | Player;
-      } | null)
-    | ({
-        relationTo: 'matches';
-        value: number | Match;
-      } | null)
-    | ({
-        relationTo: 'tournaments';
-        value: number | Tournament;
-      } | null)
-    | ({
-        relationTo: 'scores';
-        value: number | Score;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -244,6 +244,53 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "players_select".
+ */
+export interface PlayersSelect<T extends boolean = true> {
+  title?: T;
+  name?: T;
+  tournaments?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tournaments_select".
+ */
+export interface TournamentsSelect<T extends boolean = true> {
+  name?: T;
+  players?: T;
+  matches?: T;
+  leaderboard?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "matches_select".
+ */
+export interface MatchesSelect<T extends boolean = true> {
+  title?: T;
+  playerOne?: T;
+  playerTwo?: T;
+  result?: T;
+  tournament?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "scores_select".
+ */
+export interface ScoresSelect<T extends boolean = true> {
+  player?: T;
+  tournament?: T;
+  totalPoints?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
@@ -274,53 +321,6 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "players_select".
- */
-export interface PlayersSelect<T extends boolean = true> {
-  title?: T;
-  name?: T;
-  tournaments?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "matches_select".
- */
-export interface MatchesSelect<T extends boolean = true> {
-  title?: T;
-  playerOne?: T;
-  playerTwo?: T;
-  result?: T;
-  tournament?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tournaments_select".
- */
-export interface TournamentsSelect<T extends boolean = true> {
-  name?: T;
-  players?: T;
-  matches?: T;
-  leaderboard?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "scores_select".
- */
-export interface ScoresSelect<T extends boolean = true> {
-  player?: T;
-  tournament?: T;
-  totalPoints?: T;
-  updatedAt?: T;
-  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

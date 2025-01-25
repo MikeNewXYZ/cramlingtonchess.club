@@ -17,6 +17,7 @@ export const Matches: CollectionConfig<"matches"> = {
 	admin: {
 		defaultColumns: ["title", "tournament"],
 		useAsTitle: "title",
+		group: "Chess",
 	},
 	hooks: {
 		afterChange: [calculateScore],

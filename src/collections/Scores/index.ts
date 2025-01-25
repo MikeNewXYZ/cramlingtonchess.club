@@ -10,6 +10,9 @@ export const Scores: CollectionConfig = {
 		read: anyone,
 		update: authenticated,
 	},
+	admin: {
+		group: "Chess",
+	},
 	fields: [
 		{
 			name: "player",

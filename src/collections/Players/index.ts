@@ -15,6 +15,7 @@ export const Players: CollectionConfig<"players"> = {
 	admin: {
 		defaultColumns: ["title"],
 		useAsTitle: "title",
+		group: "Chess",
 	},
 	fields: [
 		{

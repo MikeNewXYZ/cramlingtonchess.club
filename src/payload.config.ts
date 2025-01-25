@@ -23,7 +23,7 @@ export default buildConfig({
 			baseDir: path.resolve(dirname),
 		},
 	},
-	collections: [Users, Media, Players, Matches, Tournaments, Scores],
+	collections: [Players, Tournaments, Matches, Scores, Users, Media],
 	editor: lexicalEditor(),
 	secret: process.env.PAYLOAD_SECRET || "",
 	typescript: {

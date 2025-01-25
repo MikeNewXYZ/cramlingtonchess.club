@@ -16,6 +16,7 @@ export const Tournaments: CollectionConfig<"tournaments"> = {
 	admin: {
 		defaultColumns: ["name", "players"],
 		useAsTitle: "name",
+		group: "Chess",
 	},
 	hooks: {
 		afterChange: [populateMatches, populateScores],
