@@ -34,6 +34,14 @@ export const Tournaments: CollectionConfig<"tournaments"> = {
 		{
 			name: "matches",
 			type: "array",
+			admin: {
+				components: {
+					RowLabel: {
+						path: "@/collections/Tournaments/components/MatchesRowLabel",
+						exportName: "MatchesRowLabel",
+					},
+				},
+			},
 			fields: [
 				{
 					type: "row",
