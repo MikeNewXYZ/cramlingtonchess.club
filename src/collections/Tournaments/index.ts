@@ -36,18 +36,23 @@ export const Tournaments: CollectionConfig<"tournaments"> = {
 			type: "array",
 			fields: [
 				{
-					name: "playerOne",
-					type: "relationship",
-					relationTo: "players",
-					required: true,
-					hasMany: false,
-				},
-				{
-					name: "playerTwo",
-					type: "relationship",
-					relationTo: "players",
-					required: true,
-					hasMany: false,
+					type: "row",
+					fields: [
+						{
+							name: "playerOne",
+							type: "relationship",
+							relationTo: "players",
+							required: true,
+							hasMany: false,
+						},
+						{
+							name: "playerTwo",
+							type: "relationship",
+							relationTo: "players",
+							required: true,
+							hasMany: false,
+						},
+					],
 				},
 				{
 					name: "outcome",
