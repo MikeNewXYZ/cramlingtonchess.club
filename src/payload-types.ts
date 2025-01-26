@@ -13,8 +13,6 @@ export interface Config {
   collections: {
     players: Player;
     tournaments: Tournament;
-    matches: Match;
-    scores: Score;
     users: User;
     media: Media;
     'payload-locked-documents': PayloadLockedDocument;
@@ -25,16 +23,10 @@ export interface Config {
     players: {
       tournaments: 'tournaments';
     };
-    tournaments: {
-      matches: 'matches';
-      leaderboard: 'scores';
-    };
   };
   collectionsSelect: {
     players: PlayersSelect<false> | PlayersSelect<true>;
     tournaments: TournamentsSelect<false> | TournamentsSelect<true>;
-    matches: MatchesSelect<false> | MatchesSelect<true>;
-    scores: ScoresSelect<false> | ScoresSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -96,40 +88,14 @@ export interface Tournament {
   id: number;
   name: string;
   players: (number | Player)[];
-  matches?: {
-    docs?: (number | Match)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
-  leaderboard?: {
-    docs?: (number | Score)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "matches".
- */
-export interface Match {
-  id: number;
-  title: string;
-  playerOne?: (number | null) | Player;
-  playerTwo?: (number | null) | Player;
-  result?: ('playerOneWin' | 'playerTwoWin' | 'draw') | null;
-  tournament?: (number | null) | Tournament;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "scores".
- */
-export interface Score {
-  id: number;
-  player?: (number | null) | Player;
-  tournament?: (number | null) | Tournament;
-  totalPoints: number;
+  matches?:
+    | {
+        playerOne: number | Player;
+        playerTwo: number | Player;
+        outcome?: ('playerOneWins' | 'playerTwoWins' | 'draw') | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -183,14 +149,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'tournaments';
         value: number | Tournament;
-      } | null)
-    | ({
-        relationTo: 'matches';
-        value: number | Match;
-      } | null)
-    | ({
-        relationTo: 'scores';
-        value: number | Score;
       } | null)
     | ({
         relationTo: 'users';
@@ -260,32 +218,14 @@ export interface PlayersSelect<T extends boolean = true> {
 export interface TournamentsSelect<T extends boolean = true> {
   name?: T;
   players?: T;
-  matches?: T;
-  leaderboard?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "matches_select".
- */
-export interface MatchesSelect<T extends boolean = true> {
-  title?: T;
-  playerOne?: T;
-  playerTwo?: T;
-  result?: T;
-  tournament?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "scores_select".
- */
-export interface ScoresSelect<T extends boolean = true> {
-  player?: T;
-  tournament?: T;
-  totalPoints?: T;
+  matches?:
+    | T
+    | {
+        playerOne?: T;
+        playerTwo?: T;
+        outcome?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }

@@ -1,8 +1,6 @@
 import type { CollectionConfig } from "payload";
 import { authenticated } from "@/access/authenticated";
 import { anyone } from "@/access/anyone";
-import { populateScores } from "./hooks/populateScores";
-import { populateMatches } from "./hooks/populateMatches";
 
 export const Tournaments: CollectionConfig<"tournaments"> = {
 	slug: "tournaments",
@@ -18,9 +16,6 @@ export const Tournaments: CollectionConfig<"tournaments"> = {
 		useAsTitle: "name",
 		group: "Chess",
 	},
-	hooks: {
-		afterChange: [populateMatches, populateScores],
-	},
 	fields: [
 		{
 			name: "name",
@@ -28,9 +23,6 @@ export const Tournaments: CollectionConfig<"tournaments"> = {
 			minLength: 1,
 			maxLength: 100,
 			required: true,
-			admin: {
-				position: "sidebar",
-			},
 		},
 		{
 			name: "players",
@@ -38,37 +30,35 @@ export const Tournaments: CollectionConfig<"tournaments"> = {
 			relationTo: "players",
 			required: true,
 			hasMany: true,
-			admin: {
-				position: "sidebar",
-			},
-			access: {
-				create: () => true,
-				update: () => false,
-			},
 		},
 		{
 			name: "matches",
-			type: "join",
-			collection: "matches",
-			on: "tournament",
-			maxDepth: 0,
-			admin: {
-				defaultColumns: ["title", "result"],
-				allowCreate: true,
-			},
-		},
-		{
-			name: "leaderboard",
-			type: "join",
-			collection: "scores",
-			on: "tournament",
-			maxDepth: 0,
-			defaultSort: "-totalPoints",
-
-			admin: {
-				defaultColumns: ["player", "totalPoints"],
-				allowCreate: false,
-			},
+			type: "array",
+			fields: [
+				{
+					name: "playerOne",
+					type: "relationship",
+					relationTo: "players",
+					required: true,
+					hasMany: false,
+				},
+				{
+					name: "playerTwo",
+					type: "relationship",
+					relationTo: "players",
+					required: true,
+					hasMany: false,
+				},
+				{
+					name: "outcome",
+					type: "select",
+					options: [
+						{ label: "Player One Wins", value: "playerOneWins" },
+						{ label: "Player Two Wins", value: "playerTwoWins" },
+						{ label: "Draw", value: "draw" },
+					],
+				},
+			],
 		},
 	],
 };
