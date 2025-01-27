@@ -1,6 +1,7 @@
 import type { CollectionConfig } from "payload";
 import { authenticated } from "@/access/authenticated";
 import { anyone } from "@/access/anyone";
+import { validatePlayersInMatch } from "./validate/validatePlayersInMatch";
 
 export const Tournaments: CollectionConfig<"tournaments"> = {
 	slug: "tournaments",
@@ -52,6 +53,7 @@ export const Tournaments: CollectionConfig<"tournaments"> = {
 							relationTo: "players",
 							required: true,
 							hasMany: false,
+							validate: validatePlayersInMatch,
 						},
 						{
 							name: "playerTwo",
@@ -59,6 +61,7 @@ export const Tournaments: CollectionConfig<"tournaments"> = {
 							relationTo: "players",
 							required: true,
 							hasMany: false,
+							validate: validatePlayersInMatch,
 						},
 					],
 				},
