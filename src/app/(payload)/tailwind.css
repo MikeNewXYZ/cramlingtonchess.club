@@ -70,3 +70,8 @@
 .nav nav a {
 	@apply text-3xl md:text-2xl;
 }
+
+.nav--nav-animate {
+	animation: none;
+	transition: none;
+}
