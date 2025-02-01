@@ -36,6 +36,7 @@ export const Tournaments: CollectionConfig<"tournaments"> = {
 			name: "matches",
 			type: "array",
 			admin: {
+				initCollapsed: true,
 				components: {
 					RowLabel: {
 						path: "@/collections/Tournaments/components/MatchesRowLabel",
@@ -75,6 +76,18 @@ export const Tournaments: CollectionConfig<"tournaments"> = {
 					],
 				},
 			],
+		},
+		{
+			name: "matchLeaderboard",
+			type: "ui",
+			admin: {
+				components: {
+					Field: {
+						path: "@/collections/Tournaments/components/MatchLeaderboard",
+						exportName: "MatchLeaderboard",
+					},
+				},
+			},
 		},
 	],
 };
