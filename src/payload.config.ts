@@ -20,6 +20,29 @@ export default buildConfig({
 		importMap: {
 			baseDir: path.resolve(dirname),
 		},
+		meta: {
+			icons: [
+				{
+					rel: "icon",
+					type: "image/x-icon",
+					url: "brand/favicon.ico",
+					sizes: "48x48",
+					fetchPriority: "high",
+				},
+			],
+		},
+		components: {
+			graphics: {
+				Icon: {
+					path: "@/payload-components/graphics/BrandIcon",
+					exportName: "BrandIcon",
+				},
+				Logo: {
+					path: "@/payload-components/graphics/BrandLogo",
+					exportName: "BrandLogo",
+				},
+			},
+		},
 	},
 	collections: [Players, Tournaments, Users, Media],
 	editor: lexicalEditor(),
