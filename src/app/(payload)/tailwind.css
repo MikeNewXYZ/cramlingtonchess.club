@@ -62,3 +62,11 @@
 	--input: 217.2 32.6% 17.5%;
 	--ring: 212.7 26.8% 83.9%;
 }
+
+.nav-group__label {
+	@apply text-2xl md:text-xl;
+}
+
+.nav nav a {
+	@apply text-3xl md:text-2xl;
+}
