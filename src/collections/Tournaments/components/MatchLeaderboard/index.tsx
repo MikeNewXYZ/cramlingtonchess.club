@@ -1,5 +1,13 @@
 import type { UIFieldServerComponent } from "payload";
 import type { Player } from "@/payload-types";
+import {
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from "@/components/ui/table";
 
 interface RawMatch {
 	playerOne: number;
@@ -93,15 +101,24 @@ const MatchLeaderboard: UIFieldServerComponent = async ({ data, req: { payload }
 	const leaderboard = calculateLeaderboard(processedMatches);
 
 	return (
-		<ol className="flex w-full flex-col gap-6 overflow-x-hidden text-3xl">
-			{leaderboard.map(({ playerTitle, score }, index) => (
-				<li key={`${playerTitle}-${score}`} className="flex gap-4">
-					<span>{index + 1}.</span>
-					<span className="break-all font-bold">{playerTitle}</span>
-					<span>{score.toFixed(1)} pts</span>
-				</li>
-			))}
-		</ol>
+		<Table className="text-lg md:text-2xl">
+			<TableHeader>
+				<TableRow>
+					<TableHead>Rank</TableHead>
+					<TableHead>Player</TableHead>
+					<TableHead>Score</TableHead>
+				</TableRow>
+			</TableHeader>
+			<TableBody>
+				{leaderboard.map(({ playerTitle, score }, index) => (
+					<TableRow key={`${playerTitle}-${score}`}>
+						<TableCell className="font-bold">{index + 1}</TableCell>
+						<TableCell>{playerTitle}</TableCell>
+						<TableCell>{score.toFixed(1)} pts</TableCell>
+					</TableRow>
+				))}
+			</TableBody>
+		</Table>
 	);
 };
 
