@@ -16,6 +16,7 @@ const dirname = path.dirname(filename);
 
 export default buildConfig({
 	admin: {
+		avatar: "default",
 		user: Users.slug,
 		importMap: {
 			baseDir: path.resolve(dirname),
