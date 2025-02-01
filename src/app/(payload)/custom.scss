@@ -1,4 +1,5 @@
 @import url("./tailwind.css");
+@import "~@payloadcms/ui/scss";
 
 .lucide {
 	width: 1em;
@@ -8,5 +9,12 @@
 @media (width > 1024px) {
 	.table {
 		width: 100%;
+	}
+}
+
+@include mid-break {
+	.doc-header__title,
+	.doc-tabs {
+		padding: 0 var(--gutter-h);
 	}
 }
