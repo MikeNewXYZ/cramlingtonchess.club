@@ -26,7 +26,7 @@ export default buildConfig({
 				{
 					rel: "icon",
 					type: "image/x-icon",
-					url: "brand/favicon.ico",
+					url: "/brand/favicon.ico",
 					sizes: "48x48",
 					fetchPriority: "high",
 				},
