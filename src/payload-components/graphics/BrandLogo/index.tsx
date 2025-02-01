@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
-import brandLogoForLight from "@/assets/Brand/BrandLogoForLight.png";
-import brandLogoForDark from "@/assets/Brand/BrandLogoForDark.png";
+import brandLogoForLight from "@/assets/brand/BrandLogoForLight.png";
+import brandLogoForDark from "@/assets/brand/BrandLogoForDark.png";
 import { useTheme } from "@payloadcms/ui";
 
 function BrandLogo() {
