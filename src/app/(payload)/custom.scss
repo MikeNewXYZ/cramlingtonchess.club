@@ -1,0 +1,12 @@
+@import url("./tailwind.css");
+
+.lucide {
+	width: 1em;
+	height: 1em;
+}
+
+@media (width > 1024px) {
+	.table {
+		width: 100%;
+	}
+}
