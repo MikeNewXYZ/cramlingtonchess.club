@@ -18,3 +18,20 @@
 		padding: 0 var(--gutter-h);
 	}
 }
+
+.relationship-table {
+	.table {
+		display: grid;
+		grid-template-columns: repeat(1, minmax(0, 1fr));
+		overflow: auto;
+		white-space: normal;
+	}
+}
+
+.collection-list {
+	.table {
+		@include mid-break {
+			padding: 0 var(--gutter-h);
+		}
+	}
+}
