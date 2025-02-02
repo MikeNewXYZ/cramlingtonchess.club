@@ -43,6 +43,12 @@ export default buildConfig({
 					exportName: "BrandLogo",
 				},
 			},
+			beforeNavLinks: [
+				{
+					path: "@/payload-components/before-nav-links/close-nav-mobile",
+					exportName: "CloseNavMobile",
+				},
+			],
 		},
 	},
 	collections: [Players, Tournaments, Users, Media],
