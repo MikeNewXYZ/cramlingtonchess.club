@@ -19,75 +19,95 @@ export const Tournaments: CollectionConfig<"tournaments"> = {
 	},
 	fields: [
 		{
-			name: "name",
-			type: "text",
-			minLength: 1,
-			maxLength: 100,
-			required: true,
-		},
-		{
-			name: "players",
-			type: "relationship",
-			relationTo: "players",
-			required: true,
-			hasMany: true,
-		},
-		{
-			name: "matches",
-			type: "array",
-			admin: {
-				initCollapsed: true,
-				components: {
-					RowLabel: {
-						path: "@/collections/Tournaments/components/MatchesRowLabel",
-						exportName: "MatchesRowLabel",
-					},
-				},
-			},
-			fields: [
+			type: "tabs",
+			tabs: [
 				{
-					type: "row",
+					label: "Settings",
 					fields: [
 						{
-							name: "playerOne",
-							type: "relationship",
-							relationTo: "players",
+							name: "name",
+							type: "text",
+							minLength: 1,
+							maxLength: 100,
 							required: true,
-							hasMany: false,
-							validate: validatePlayersInMatch,
 						},
 						{
-							name: "playerTwo",
+							name: "players",
 							type: "relationship",
 							relationTo: "players",
 							required: true,
-							hasMany: false,
-							validate: validatePlayersInMatch,
+							hasMany: true,
 						},
 					],
 				},
 				{
-					name: "outcome",
-					type: "select",
-					options: [
-						{ label: "Player One Wins", value: "playerOneWins" },
-						{ label: "Player Two Wins", value: "playerTwoWins" },
-						{ label: "Draw", value: "draw" },
+					label: "Matches",
+					fields: [
+						{
+							name: "matches",
+							type: "array",
+							admin: {
+								initCollapsed: true,
+								components: {
+									RowLabel: {
+										path: "@/collections/Tournaments/components/MatchesRowLabel",
+										exportName: "MatchesRowLabel",
+									},
+								},
+							},
+							fields: [
+								{
+									type: "row",
+									fields: [
+										{
+											name: "playerOne",
+											type: "relationship",
+											relationTo: "players",
+											required: true,
+											hasMany: false,
+											validate: validatePlayersInMatch,
+										},
+										{
+											name: "playerTwo",
+											type: "relationship",
+											relationTo: "players",
+											required: true,
+											hasMany: false,
+											validate: validatePlayersInMatch,
+										},
+									],
+								},
+								{
+									name: "outcome",
+									type: "select",
+									options: [
+										{ label: "Player One Wins", value: "playerOneWins" },
+										{ label: "Player Two Wins", value: "playerTwoWins" },
+										{ label: "Draw", value: "draw" },
+									],
+								},
+							],
+						},
+					],
+				},
+				{
+					label: "Leaderboard",
+					fields: [
+						{
+							name: "matchLeaderboard",
+							type: "ui",
+							admin: {
+								components: {
+									Field: {
+										path: "@/collections/Tournaments/components/MatchLeaderboard",
+										exportName: "MatchLeaderboard",
+									},
+								},
+							},
+						},
 					],
 				},
 			],
-		},
-		{
-			name: "matchLeaderboard",
-			type: "ui",
-			admin: {
-				components: {
-					Field: {
-						path: "@/collections/Tournaments/components/MatchLeaderboard",
-						exportName: "MatchLeaderboard",
-					},
-				},
-			},
 		},
 	],
 };
