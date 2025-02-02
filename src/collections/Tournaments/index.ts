@@ -94,13 +94,13 @@ export const Tournaments: CollectionConfig<"tournaments"> = {
 					label: "Leaderboard",
 					fields: [
 						{
-							name: "matchLeaderboard",
+							name: "leaderboard",
 							type: "ui",
 							admin: {
 								components: {
 									Field: {
-										path: "@/collections/Tournaments/components/MatchLeaderboard",
-										exportName: "MatchLeaderboard",
+										path: "@/collections/Tournaments/components/Leaderboard",
+										exportName: "Leaderboard",
 									},
 								},
 							},

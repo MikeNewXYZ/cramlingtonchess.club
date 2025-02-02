@@ -71,7 +71,7 @@ function calculateLeaderboard(matches: ProcessedMatch[]): LeaderboardEntry[] {
 	return formatLeaderboardResults(leaderboard);
 }
 
-const MatchLeaderboard: UIFieldServerComponent = async ({ data, req: { payload } }) => {
+const Leaderboard: UIFieldServerComponent = async ({ data, req: { payload } }) => {
 	if (!data?.players) return;
 	if (!data?.matches) return;
 
@@ -122,4 +122,4 @@ const MatchLeaderboard: UIFieldServerComponent = async ({ data, req: { payload }
 	);
 };
 
-export { MatchLeaderboard };
+export { Leaderboard };
