@@ -1,4 +1,4 @@
-import type { ServerComponentProps, UIFieldServerComponent, UIFieldServerProps } from "payload";
+import type { ServerComponentProps } from "payload";
 import type { Player, Tournament } from "@/payload-types";
 import type { LeaderboardEntry } from "./LeaderboardTable";
 import { LeaderboardTable } from "./LeaderboardTable";
