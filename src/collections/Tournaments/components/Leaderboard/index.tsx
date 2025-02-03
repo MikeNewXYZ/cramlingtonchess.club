@@ -1,30 +1,14 @@
-import type { UIFieldServerComponent } from "payload";
-import type { Player } from "@/payload-types";
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@/components/ui/table";
+import type { ServerComponentProps, UIFieldServerComponent, UIFieldServerProps } from "payload";
+import type { Player, Tournament } from "@/payload-types";
+import type { LeaderboardEntry } from "./LeaderboardTable";
+import { LeaderboardTable } from "./LeaderboardTable";
 
-interface RawMatch {
-	playerOne: number;
-	playerTwo: number;
-	outcome: "playerOneWins" | "playerTwoWins" | "draw" | null;
-}
-
-interface ProcessedMatch {
+type Match = {
+	id: string;
 	playerOne: Player;
 	playerTwo: Player;
-	outcome: RawMatch["outcome"];
-}
-
-interface LeaderboardEntry {
-	playerTitle: string;
-	score: number;
-}
+	outcome?: ("playerOneWins" | "playerTwoWins" | "draw") | null;
+};
 
 function formatLeaderboardResults(
 	leaderboard: Map<number, { player: Player; score: number }>,
@@ -37,7 +21,7 @@ function formatLeaderboardResults(
 		}));
 }
 
-function calculateLeaderboard(matches: ProcessedMatch[]): LeaderboardEntry[] {
+function calculateLeaderboard(matches: Match[]): LeaderboardEntry[] {
 	const leaderboard = new Map<number, { player: Player; score: number }>();
 
 	for (const match of matches) {
@@ -71,55 +55,22 @@ function calculateLeaderboard(matches: ProcessedMatch[]): LeaderboardEntry[] {
 	return formatLeaderboardResults(leaderboard);
 }
 
-const Leaderboard: UIFieldServerComponent = async ({ data, req: { payload } }) => {
-	if (!data?.players) return;
-	if (!data?.matches) return;
+type LeaderboardProps = Omit<ServerComponentProps, "data"> & {
+	data: Tournament;
+};
 
-	const playerIds = (data.players as number[]) || [];
-	const rawMatches = (data.matches as RawMatch[]) || [];
+async function Leaderboard({ data, operation, req: { payload } }: LeaderboardProps) {
+	if (operation === "create") return;
 
-	const playersResult = await payload.find({
-		collection: "players",
-		where: { id: { in: playerIds.join(",") } },
-		limit: 100,
+	const tournament = await payload.findByID({
+		collection: "tournaments",
+		id: data.id,
+		depth: 2,
 	});
 
-	const playerMap = playersResult.docs.reduce(
-		(acc, player) => {
-			acc[player.id] = player;
-			return acc;
-		},
-		{} as Record<number, Player>,
-	);
+	const leaderboard = calculateLeaderboard(tournament.matches as Match[]);
 
-	const processedMatches = rawMatches.map((match) => ({
-		...match,
-		playerOne: playerMap[match.playerOne],
-		playerTwo: playerMap[match.playerTwo],
-	}));
-
-	const leaderboard = calculateLeaderboard(processedMatches);
-
-	return (
-		<Table className="text-lg md:text-2xl">
-			<TableHeader>
-				<TableRow>
-					<TableHead>Rank</TableHead>
-					<TableHead>Player</TableHead>
-					<TableHead>Score</TableHead>
-				</TableRow>
-			</TableHeader>
-			<TableBody>
-				{leaderboard.map(({ playerTitle, score }, index) => (
-					<TableRow key={`${playerTitle}-${score}`}>
-						<TableCell className="font-bold">{index + 1}</TableCell>
-						<TableCell>{playerTitle}</TableCell>
-						<TableCell>{score.toFixed(1)} pts</TableCell>
-					</TableRow>
-				))}
-			</TableBody>
-		</Table>
-	);
-};
+	return <LeaderboardTable leaderboard={leaderboard} />;
+}
 
 export { Leaderboard };

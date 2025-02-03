@@ -1,63 +1,100 @@
 import type { Config } from "tailwindcss";
 
 export default {
-    darkMode: ["class"],
-    content: [
-		"./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-		"./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-		"./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-		"./src/collections/**/*.{js,ts,jsx,tsx,mdx}",
-	],
+	darkMode: ["class"],
+	content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
 	theme: {
-    	extend: {
-    		borderRadius: {
-    			lg: 'var(--radius)',
-    			md: 'calc(var(--radius) - 2px)',
-    			sm: 'calc(var(--radius) - 4px)'
-    		},
-    		colors: {
-    			background: 'hsl(var(--background))',
-    			foreground: 'hsl(var(--foreground))',
-    			card: {
-    				DEFAULT: 'hsl(var(--card))',
-    				foreground: 'hsl(var(--card-foreground))'
-    			},
-    			popover: {
-    				DEFAULT: 'hsl(var(--popover))',
-    				foreground: 'hsl(var(--popover-foreground))'
-    			},
-    			primary: {
-    				DEFAULT: 'hsl(var(--primary))',
-    				foreground: 'hsl(var(--primary-foreground))'
-    			},
-    			secondary: {
-    				DEFAULT: 'hsl(var(--secondary))',
-    				foreground: 'hsl(var(--secondary-foreground))'
-    			},
-    			muted: {
-    				DEFAULT: 'hsl(var(--muted))',
-    				foreground: 'hsl(var(--muted-foreground))'
-    			},
-    			accent: {
-    				DEFAULT: 'hsl(var(--accent))',
-    				foreground: 'hsl(var(--accent-foreground))'
-    			},
-    			destructive: {
-    				DEFAULT: 'hsl(var(--destructive))',
-    				foreground: 'hsl(var(--destructive-foreground))'
-    			},
-    			border: 'hsl(var(--border))',
-    			input: 'hsl(var(--input))',
-    			ring: 'hsl(var(--ring))',
-    			chart: {
-    				'1': 'hsl(var(--chart-1))',
-    				'2': 'hsl(var(--chart-2))',
-    				'3': 'hsl(var(--chart-3))',
-    				'4': 'hsl(var(--chart-4))',
-    				'5': 'hsl(var(--chart-5))'
-    			}
-    		}
-    	}
-    },
-	plugins: [require("tailwindcss-animate")],
+		extend: {
+			colors: {
+				"p-border": "var(--theme-border-color)",
+				"p-elevation": {
+					0: "var(--theme-elevation-0)",
+					50: "var(--theme-elevation-50)",
+					100: "var(--theme-elevation-100)",
+					150: "var(--theme-elevation-150)",
+					200: "var(--theme-elevation-200)",
+					250: "var(--theme-elevation-250)",
+					300: "var(--theme-elevation-300)",
+					350: "var(--theme-elevation-350)",
+					400: "var(--theme-elevation-400)",
+					450: "var(--theme-elevation-450)",
+					500: "var(--theme-elevation-500)",
+					550: "var(--theme-elevation-550)",
+					600: "var(--theme-elevation-600)",
+					650: "var(--theme-elevation-650)",
+					700: "var(--theme-elevation-700)",
+					750: "var(--theme-elevation-750)",
+					800: "var(--theme-elevation-800)",
+					850: "var(--theme-elevation-850)",
+					900: "var(--theme-elevation-900)",
+					950: "var(--theme-elevation-950)",
+					1000: "var(--theme-elevation-1000)",
+				},
+				"p-success": {
+					50: "var(--theme-success-50)",
+					100: "var(--theme-success-100)",
+					150: "var(--theme-success-150)",
+					200: "var(--theme-success-200)",
+					250: "var(--theme-success-250)",
+					300: "var(--theme-success-300)",
+					350: "var(--theme-success-350)",
+					400: "var(--theme-success-400)",
+					450: "var(--theme-success-450)",
+					500: "var(--theme-success-500)",
+					550: "var(--theme-success-550)",
+					600: "var(--theme-success-600)",
+					650: "var(--theme-success-650)",
+					700: "var(--theme-success-700)",
+					750: "var(--theme-success-750)",
+					800: "var(--theme-success-800)",
+					850: "var(--theme-success-850)",
+					900: "var(--theme-success-900)",
+					950: "var(--theme-success-950)",
+				},
+				"p-warning": {
+					50: "var(--theme-warning-50)",
+					100: "var(--theme-warning-100)",
+					150: "var(--theme-warning-150)",
+					200: "var(--theme-warning-200)",
+					250: "var(--theme-warning-250)",
+					300: "var(--theme-warning-300)",
+					350: "var(--theme-warning-350)",
+					400: "var(--theme-warning-400)",
+					450: "var(--theme-warning-450)",
+					500: "var(--theme-warning-500)",
+					550: "var(--theme-warning-550)",
+					600: "var(--theme-warning-600)",
+					650: "var(--theme-warning-650)",
+					700: "var(--theme-warning-700)",
+					750: "var(--theme-warning-750)",
+					800: "var(--theme-warning-800)",
+					850: "var(--theme-warning-850)",
+					900: "var(--theme-warning-900)",
+					950: "var(--theme-warning-950)",
+				},
+				"p-error": {
+					50: "var(--theme-error-50)",
+					100: "var(--theme-error-100)",
+					150: "var(--theme-error-150)",
+					200: "var(--theme-error-200)",
+					250: "var(--theme-error-250)",
+					300: "var(--theme-error-300)",
+					350: "var(--theme-error-350)",
+					400: "var(--theme-error-400)",
+					450: "var(--theme-error-450)",
+					500: "var(--theme-error-500)",
+					550: "var(--theme-error-550)",
+					600: "var(--theme-error-600)",
+					650: "var(--theme-error-650)",
+					700: "var(--theme-error-700)",
+					750: "var(--theme-error-750)",
+					800: "var(--theme-error-800)",
+					850: "var(--theme-error-850)",
+					900: "var(--theme-error-900)",
+					950: "var(--theme-error-950)",
+				},
+			},
+		},
+	},
+	plugins: [require("tailwindcss-animate"), require("tailwindcss-react-aria-components")],
 } satisfies Config;
